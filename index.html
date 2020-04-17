@@ -2,38 +2,31 @@
 <html lang="da">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Kryds & Bolle</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Kryds & Bolle</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="spil.js" defer></script>
 </head>
-
-</html>
-
+    
 <body>
-    <div class="spil"></div>
-    <script src="spil.js"></script>
+  <div class="spilleplade" id="spilleplade">
+    <div class="felt" data-felt></div>
+    <div class="felt" data-felt></div>
+    <div class="felt" data-felt></div>
+    <div class="felt" data-felt></div>
+    <div class="felt" data-felt></div>
+    <div class="felt" data-felt></div>
+    <div class="felt" data-felt></div>
+    <div class="felt" data-felt></div>
+    <div class="felt" data-felt></div>
+  </div>
+  <div class="vinder-besked" id="vinderBesked">
+    <div data-vinder-besked-tekst></div>
+    <button id="spilIgen">Spil igen</button>
+  </div>
+
 </body>
 
-<div class="spil">
-    <h1>Kryds & Bolle</h1>
-    <table id="spil" class="krydsogbolle" style="float:left;width:45%;" contenteditable="true">
-    </table>
-    <div class="spilleplade">
-        <div id="felt_0" class="felt"></div>
-        <div id="felt_1" class="felt"></div>
-        <div id="felt_2" class="felt"></div>
-        <div id="felt_3" class="felt"></div>
-        <div id="felt_4" class="felt"></div>
-        <div id="felt_5" class="felt"></div>
-        <div id="felt_6" class="felt"></div>
-        <div id="felt_7" class="felt"></div>
-        <div id="felt_8" class="felt"></div>
-    </div>
-</div>
-
-<div class="spil">
-    <h2 id="winner"></h2>
-    <button onclick="restart()">Spil igen</button>
-</div>
+</html>
