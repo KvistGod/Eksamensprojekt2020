@@ -1,60 +1,175 @@
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: Arial, Helvetica, sans-serif;
-}
-
-.spil {
-    min-height: 15vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #eee;
-}
-
-button {
-    outline: none;
-    border: 4px solid darkcyan;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    background: none;
-    transition: all 0.2s ease-in-out;
-}
-
-button:hover{
-    cursor: pointer;
-    background: darkcyan;
-    color: white;
-}
-
-.spilleplade{
+*, *::after, *::before {
+    box-sizing: border-box;
+  }
+  
+  /* Variabler til at bestemme felt og tegn størrelsen. */
+  :root {
+    --felt-size: 100px;
+    --tegn-size: calc(var(--felt-size) * .9);
+  }
+  
+  /* Fjerner alle kanter. */
+  body {
+    margin: 0;
+  }
+  
+  
+  .spilleplade {
+    /* Viser boardet i 100 view widght og view height, så den fylder hele skærmen */
+    width: 100vw;
+    height: 100vh;
+    /* Deler felterne med en grid. */
     display: grid;
-    width: 310px;
-    height: 310px;
-    grid-template-columns: auto auto auto;
-}
-
-.felt{
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    align-items: center;
+    /* Centrerer spillet og felterne på skærmen. */
     justify-content: center;
-    font-size: 3rem;
-    font-weight: bold;
-    border: 6px solid black;
-    transition: background 0.2s ease-in-out;
-}
-
-.felt:hover{
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    /* Laver 3 kolonner med 3 rækker i stedet for 1 kolonne med 9 rækker. */
+    grid-template-columns: repeat(3, auto)
+  }
+  
+  .felt {
+    width: var(--felt-size);
+    height: var(--felt-size);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     cursor: pointer;
-    background: #0ff30f;
-}
-
-.optaget:hover{
-    background: red;
-}
-
+  }
+  
+  /* Gør ydre kanten tykkere så det ser pænere ud. */
+  .felt:first-child,
+  .felt:nth-child(2),
+  .felt:nth-child(3) {
+    border-top-width: 4px;
+  }
+  
+  .felt:first-child,
+  .felt:nth-child(4),
+  .felt:nth-child(7) {
+    border-left-width: 4px;
+  }
+  
+  .felt:nth-child(3),
+  .felt:nth-child(6),
+  .felt:nth-child(9) {
+    border-right-width: 4px;
+  }
+  
+  .felt:nth-child(7),
+  .felt:nth-child(8),
+  .felt:last-child {
+    border-bottom-width: 4px;
+  }
+  
+  /* Viser et "not-allowed" over felter der er optaget. */
+  .felt.x,
+  .felt.o {
+    cursor: not-allowed;
+  }
+  
+  /* Sætter tegnene til at være sorte */
+  .felt.x::before,
+  .felt.x::after,
+  .felt.o::before {
+    background-color: black;
+  }
+  
+  /* Sætter hover effekten ved at ændre farven på tegnet, når man holder musen over et felt, der er TOMT. */
+  .spilleplade.x .felt:not(.x):not(.o):hover::before,
+  .spilleplade.x .felt:not(.x):not(.o):hover::after,
+  .spilleplade.o .felt:not(.x):not(.o):hover::before {
+    background-color: lightgrey;
+  }
+  
+  /* Tegner 2 lodrette streger, der bliver placeret inden i hinanden. */
+  .felt.x::before,
+  .felt.x::after,
+  .spilleplade.x .felt:not(.x):not(.o):hover::before,
+  .spilleplade.x .felt:not(.x):not(.o):hover::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--tegn-size) * .15);
+    height: var(--tegn-size);
+  }
+  
+  /* Rotere den ene lodrette streg 45 grader den ene vej, til at danne krydset. */
+  .felt.x::before,
+  .spilleplade.x .felt:not(.x):not(.o):hover::before {
+    transform: rotate(45deg);
+  }
+  
+  /* Roterer den anden lodrette streg 45 grader den anden vej, til at danne krydset. */
+  .felt.x::after,
+  .spilleplade.x .felt:not(.x):not(.o):hover::after {
+    transform: rotate(-45deg);
+  }
+  
+  /* Tegner en firkant, hvis border radius bliver sat til 50% og bliver en cirkel. */
+  .felt.o::before,
+  .felt.o::after,
+  .spilleplade.o .felt:not(.x):not(.o):hover::before,
+  .spilleplade.o .felt:not(.x):not(.o):hover::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  /* Tegner en sort cirkel (Farven er sat højere oppe). */
+  .felt.o::before,
+  .spilleplade.o .felt:not(.x):not(.o):hover::before {
+    width: var(--tegn-size);
+    height: var(--tegn-size);
+  }
+  
+  /* Tegner en hvid cirkel inden i den sorte, til at danne bolle. */
+  .felt.o::after,
+  .spilleplade.o .felt:not(.x):not(.o):hover::after {
+    width: calc(var(--tegn-size) * .7);
+    height: calc(var(--tegn-size) * .7);
+    background-color: white;
+  }
+  
+  .vinder-besked {
+    /* Vinder beskeden bliver ikke vist før der bliver tilføjet "vis" til vinder-besked class. */
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Laver en slags overlay der 90% gennemsigtig. */
+    background-color: rgba(0, 0, 0, 90%);
+   /* Centrerer knappen */
+    justify-content: center;
+    align-items: center;
+    /* Tekst farven til hvid og størrelsen til 5 rem. */
+    color: white;
+    font-size: 5rem;
+    /* Viser teksten over knappen */
+    flex-direction: column;
+  }
+  
+  /* Styler knappen, så den er lidt pænere. */
+  .vinder-besked button {
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: .25em .5em;
+    cursor: pointer;
+  }
+  
+  /* Spejlvender farverne på knappen når man holder musen over den. */
+  .vinder-besked button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
+  }
+  
+  /* Viser vinder beskeden, hvis "vis" er tilføjet til vinder-besked class.*/
+  .vinder-besked.vis {
+    display: flex;
+  }
