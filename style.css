@@ -29,10 +29,12 @@
     grid-template-columns: repeat(3, auto)
   }
   
+/* Bruger variablerne til at sætte størrelsen på felterne */
   .felt {
     width: var(--felt-size);
     height: var(--felt-size);
     border: 1px solid black;
+    /* Centrerer tegnene i feltet. */
     display: flex;
     justify-content: center;
     align-items: center;
