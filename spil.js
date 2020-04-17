@@ -9,7 +9,7 @@ const VinderKombinationer = [
   [2, 5, 8],
   [0, 4, 8],
   [2, 4, 6]
-] //Alle vinder kombinationerne til at vinde
+] //Alle kombinationerne til at vinde
 
 const felt = document.querySelectorAll('[data-felt]')
 const spilleplade = document.getElementById('spilleplade')
