@@ -79,7 +79,7 @@ function skrivTegn(felt, spillerTur) {
   felt.classList.add(spillerTur)
 }
 
-//Til at skifte mellem kryds og bolle, bliver kaldt i 
+//Til at skifte mellem kryds og bolle, bliver kaldt i tegnPlaceret funktionen.
 function skiftTur() {
   oTur = !oTur
 }
