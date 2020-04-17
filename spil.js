@@ -95,7 +95,7 @@ function setSpillepladeHoverclass() {
   }
 }
 
-//Tjekker om man har 1 af vinder kombinationerne
+//Tjekker om man har 1 af vinder kombinationerne, ved at se på om en af vinder kombinationerne har samme tegn
 function tjekOmVundet(spillerTur) {
   return VinderKombinationer.some(kombination => {
     return kombination.every(index => {
